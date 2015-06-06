@@ -106,20 +106,6 @@ MyApplet.prototype = {
 	  on_applet_clicked: function(){
 		    this.menu.toggle();
     },
-		// onpostgresSwitchPressed: function(item){
-		// 	global.log(1);
-		// 	var command;
-		// 	if(item.state){
-		// 		command = 'start';
-		// 	}
-		//
-		// 	else {
-		// 		command = 'stop';
-		// 	}
-		//
-		// 	ServiceCommand('postgresql', command);
-    // },
-
 }
 
 
