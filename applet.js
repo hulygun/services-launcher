@@ -73,7 +73,7 @@ MyApplet.prototype = {
 				});
 				this.menu.addMenuItem(this.mysqlEnabledSwitch);
 				// Postgres
-				this.postgresEnabledSwitch = new PopupMenu.PopupSwitchMenuItem(_("Postgres Server"), false);
+				this.postgresEnabledSwitch = new PopupMenu.PopupSwitchMenuItem(_("Postgres Server"), checkService('postgres') );
 				this.postgresEnabledSwitch.connect('toggled', function(item){
 					var command;
 					if (item.state) {
@@ -106,6 +106,20 @@ MyApplet.prototype = {
 	  on_applet_clicked: function(){
 		    this.menu.toggle();
     },
+}
+function checkService(service) {
+         s=GLib.spawn_async_with_pipes(null, ["pgrep",service], null, GLib.SpawnFlags.SEARCH_PATH,null)
+         c=GLib.IOChannel.unix_new(s[3])
+         let [res, pid, in_fd, out_fd, err_fd] =
+           GLib.spawn_async_with_pipes(
+             null, ["pgrep",service], null, GLib.SpawnFlags.SEARCH_PATH, null);
+         out_reader = new Gio.DataInputStream({ base_stream: new Gio.UnixInputStream({fd: out_fd}) });
+         let [out, size] = out_reader.read_line(null);
+         var result = false;
+         if(out != null) {
+                 result = true;
+         }
+         return result;
 }
 
 
