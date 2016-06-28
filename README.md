@@ -1,24 +1,22 @@
 ___________
 1. ОПИСАНИЕ
------------
+____________
 
 Апплет запуска сервисов для cinnamon.
 
---------------
-2. ЗАВИСИМОСТИ
---------------
+____________
+2. УСТАНОВКА
+____________
 
-*. **gksu** - используется для запуска сервисов от root`а
+    git clone git@github.com:hulygun/services-launcher.git ~/.local/share/cinnamon/applets/serviceLauncher@hulygun
 
-------------
+____________
 3. НАСТРОЙКА
 ____________
 
-В файле applet.js идёт инициализация меню. По аналогии можно настроить 
-свои сервисы
+Паттерн для сервисов: **{service 1 label}:{service1 name},{service 2 label}:{service2 name}**
+Для разделения используйте **"separator"**
 
---------
-4. Планы
---------
+Например:
 
-Как будет время, обязательно сделаю админку
+    Nginx Server:nginx,Apache Server:httpd,separator,Postgres Server:postgresql,Mysql Server:mysqld

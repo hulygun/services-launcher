@@ -1,6 +1,6 @@
 {
-    "uuid": "serviceLauncher@hulygun",
-    "name": "Service Launcher",
-    "description": "Description"
+    "dangerous": false, 
+    "description": "Description", 
+    "uuid": "serviceLauncher@hulygun", 
+    "name": "Service Launcher"
 }
-
