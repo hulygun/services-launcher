@@ -37,7 +37,6 @@ MyApplet.prototype = {
         if (this.services.length) {
             var services = this.services.split(',');
             services.forEach(function (item) {
-                global.log(item);
                 if (item !== 'separator') {
                     var vals = item.split(':');
                     var serviceSwitch = new PopupMenu.PopupSwitchMenuItem(vals[0], checkService(vals[1]));
@@ -48,7 +47,6 @@ MyApplet.prototype = {
                         } else {
                             command = 'stop';
                         }
-                        global.log(item.state + ' ' + vals[1] + ' ' + command);
                         ServiceCommand(vals[1], command);
                     });
                     menu.addMenuItem(serviceSwitch);
