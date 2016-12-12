@@ -7,7 +7,7 @@ const AppletDir = imports.ui.appletManager.appletMeta['serviceLauncher@hulygun']
 const Settings = imports.ui.settings;
 
 function ServiceCommand(service, command) {
-    var com = 'sudo systemctl ' + command + ' ' + service + '.service';
+    var com = 'gksudo systemctl ' + command + ' ' + service;
     Util.spawnCommandLine(com)
 }
 
@@ -57,6 +57,7 @@ MyApplet.prototype = {
         }
     },
     on_applet_clicked: function () {
+		this.refresh();
         this.menu.toggle();
     },
     on_settings_changed: function () {
@@ -65,15 +66,18 @@ MyApplet.prototype = {
 };
 
 function checkService(service) {
-    var s = GLib.spawn_async_with_pipes(null, ["pgrep", service], null, GLib.SpawnFlags.SEARCH_PATH, null);
-    var c = GLib.IOChannel.unix_new(s[3]);
+    //var s = GLib.spawn_async_with_pipes(null, ["systemctl","is-active", service], null, GLib.SpawnFlags.SEARCH_PATH, null);
+    
+    //var c = GLib.IOChannel.unix_new(s[3]);
+    
     let [res, pid, in_fd, out_fd, err_fd] =
         GLib.spawn_async_with_pipes(
-            null, ["pgrep", service], null, GLib.SpawnFlags.SEARCH_PATH, null);
+            null, ["systemctl","is-active", service], null, GLib.SpawnFlags.SEARCH_PATH, null);
     out_reader = new Gio.DataInputStream({base_stream: new Gio.UnixInputStream({fd: out_fd})});
     let [out, size] = out_reader.read_line(null);
     var result = false;
-    if (out != null) {
+
+    if (out == "active") {
         result = true;
     }
     return result;
